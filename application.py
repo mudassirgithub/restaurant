@@ -1,6 +1,4 @@
 import os
-import sys
-
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for, make_response
 from flask_session import Session
@@ -8,8 +6,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import date
-
-from helpers import apology, login_required
+from helpers import login_required
 
 # Configure application
 app = Flask(__name__)
@@ -40,10 +37,16 @@ total_amount = None
 
 
 @app.route("/")
-@login_required
 def index():
-    return render_template("home.html")
+    if session.get("user_id") is not None:
+        return redirect("/home")
+    return render_template("index.html")
 
+@app.route("/home")
+def home():
+    if session.get("user_id") is None:
+        return redirect("/")
+    return render_template("home.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -80,7 +83,7 @@ def login():
         flash("Signed In!")
 
         # Redirect user to home page
-        return redirect("/")
+        return redirect("/home")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
@@ -116,7 +119,7 @@ def placeorder():
             return render_template("bill.html", selected=selected, total_amount=session["total_amount"])
         else:
             flash("No Items Were Selected!")
-            return redirect("/")
+            return redirect("/home")
     else:
         return render_template("placeorder.html")
 
@@ -126,7 +129,7 @@ def placeorder():
 def bill():
     if not(request.form.get("name") or request.form.get("mobile") or request.form.get("address")):
         flash("error: form wasn't filled!")
-        return redirect("/")
+        return redirect("/home")
     order_for = request.form.get("name")
     mobile = request.form.get("moblie")
     address = request.form.get("address")
@@ -136,10 +139,10 @@ def bill():
         session.pop('selected', None)
         session.pop('total_amount', None)
         flash("Order Placed!")
-        return redirect("/")
+        return redirect("/home")
     else:
         flash("error occured, sorry!")
-        return redirect("/")
+        return redirect("/home")
 
 
 @app.route("/booktable", methods=["GET", "POST"])
@@ -150,13 +153,13 @@ def booktable():
     else:
         if not(request.form.get("name") or request.form.get("date") or request.form.get("time") or request.form.get("guests")):
             flash("Form was not filled!")
-            return redirect("/")
+            return redirect("/home")
         booking = db.execute("INSERT INTO bookings (user_id,table_for,date,time,guests) VALUES (:user_id,:table_for,:date,:time,:guests)",
                              user_id=session["user_id"], table_for=request.form.get("name"), date=request.form.get("date"),
                              time=request.form.get("time"), guests=request.form.get("guests"))
         flash("Table Booked!")
 
-        return redirect("/")
+        return redirect("/home")
 
 
 @app.route("/logout")
@@ -169,7 +172,7 @@ def logout():
     flash("Signed Out")
 
     # Redirect user to login form
-    return render_template("index.html")
+    return url_for("index")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -202,18 +205,17 @@ def register():
 
         flash("Signed Up!")
 
-        return render_template("index.html")
+        return render_template("login.html")
 
     else:
         return render_template("register.html")
-
 
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
         e = InternalServerError()
-    return apology(e.name, e.code)
-
+    flash("oops: Error Occured")
+    return redirect("/")   
 
 # Listen for errors
 for code in default_exceptions:
