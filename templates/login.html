@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block main%}
+<div class="wrap-all wrapper" id="wrap">
+    <div class="rest-name">
+            <a href="#"><span>PEACOCK</span>Restaurant</a>
+    </div>
+    <div class="rest-info">
+        <div class="rest-info-mid">
+            <form action="/login" autocomplete="off" method="post">
+                <div class="form-group">
+                    <input autocomplete="off" required autofocus class="form-control" name="username" placeholder="Username" type="text">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" required name="password" placeholder="Password" type="password">
+                </div>
+                <button class="btns btn-yellow" type="submit">Sign In</button>
+            </form>
+        </div>
+
+    </div>
+    {% if get_flashed_messages() %}
+    <div name="alert-msg" class="flash-msg flex-mid btns btn-grey" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

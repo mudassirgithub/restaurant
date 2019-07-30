@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}BookTable{% endblock %}
+{% block main%}
+<form action="/booktable" autocomplete="off" method="post" class="wrapper wrap-all" id="wrap-table">
+ <div class="rest-name">
+   <a href="#"><span>PEACOCK</span>Restaurant</a>
+ </div>
+ <div class="bill-table">
+ <div class="form-table">
+  <h4 class=flex-mid>Fill The Form</h4>
+  <div class="fields">
+   <h6>Table for</h6>
+   <input required type="text" placeholder="name" name="name">
+  </div>
+  <div class="fields">
+   <h6>Select Date:</h6>
+   <input required type="date" name="date">
+  </div>
+  <div class="fields">
+   <h6>Select Time:</h6>
+   <input required type="time" name="time">
+  </div>
+  <div class="fields">
+   <h6>Guests:</h6>
+   <input required type="number" min="1" max="8" step="1" name="guests" placeholder="1">
+  </div>
+ </div>
+ <div class="flex-mid"><button id="submit-btn" class="btn-silver" type="submit">Book Table</button></div>
+ </div>
+</form>
+{% endblock %}

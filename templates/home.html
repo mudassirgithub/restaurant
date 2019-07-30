@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block main%}
+<div class="wrap-all wrapper" id="wrap">
+    <div class="rest-name">
+            <a href="#"><span>PEACOCK</span>Restaurant</a>
+    </div>
+    <div class="rest-info">
+        <div class="rest-info-mid">
+            <h1>Fresh & Delicious</h1>
+            <p>Tastes you will remember..</p>
+            <div class="rest-btns">
+                <a href="/booktable"><button class="btn-yellow">Book Table<i class="fa fa-angle-right"></i></button></a>
+                <a href="/placeorder"><button class="btn-silver">Place Order<i class="fa fa-angle-right"></i></button></a>
+                <a href="/logout"><button class="btn-grey">Sign Out<i class="fa fa-angle-right"></i></button></a>
+            </div>
+
+        </div>
+
+    </div>
+     {% if get_flashed_messages() %}
+     <div id="alert-box" name="alert-msg" class="flash-msg flex-mid btns btn-grey" role="alert">
+                    <div>{{ get_flashed_messages() | join(" ") }}</div>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

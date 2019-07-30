@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}Bill{% endblock %}
+{% block main%}
+<div class="wrap-all wrapper" id="wrap-bill">
+    <div class="rest-name">
+            <a href="/"><span>PEACOCK</span>Restaurant</a>
+    </div>
+    <div class="bill-table">
+    <table class="table table-splitted">
+        <thead>
+            <tr >
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in selected %}
+            <tr>
+                <td>{{ item["item_name"] }}</td>
+                <td>{{ item["item_quantity"] }}</td>
+                <td>{{ item["item_price"] }}</td>
+                <td>{{ (item["item_quantity"] * item["item_price"]) | abs }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td>{{ total_amount }}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <form action="/bill" autocomplete="off" method="post">
+    <div class="details">
+        <h4 class=flex-mid>Payment-Type : COD</h4>
+        <div class="fields">
+            <h6>Order for</h6>
+            <input required type="text" placeholder="name" name="name">
+        </div>
+        <div class="fields">
+            <h6>Mobile No.</h6>
+            <input type="tel" name="mobile" pattern="[0-9]{10}" placeholder="9999999999" required>
+        </div>
+        <div class="fields">
+            <h6>Address</h6>
+            <input required type="textarea" name="address" placeholder="Hno. 7-7-7, Kashmeergadda..">
+        </div>
+    </div>
+    <div class="flex-mid"><button class="btns btn-yellow" type="submit">Place Order</button></div></form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+{% block title %}PlaceOrder{% endblock %}
+{% block main%}
+<form action="/placeorder" autocomplete="off" method="post"class="wrap-all wrapper2" id="wrap-order">
+    <div id="i1" class="items">
+        <div class="item-image">
+            <img src="/static/chicken-biryani.png">
+        </div>
+        <div class="item-des">
+            <div class="item-name">
+                <h6>Chicken Biryani single</h6>
+                <h6>160&#8377</h6>
+            </div>
+            <div class="item-select">
+                <div>
+                    <label>Select<input type="checkbox" name="item1" value="101"></label>
+
+                </div>
+                <div>
+                    <label>Quanity
+                    <input type="number" min="1" max="8" name="item1-quantity" step="1" placeholder="1"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="i2" class="items">
+        <div class="item-image">
+            <img src="/static/chicken-biryani.png">
+        </div>
+        <div class="item-des">
+            <div class="item-name">
+                <h6>Chicken Biryani family</h6>
+                <h6>380&#8377</h6>
+            </div>
+            <div class="item-select">
+                <div>
+                    <label>Select<input type="checkbox" name="item2" value="102"></label>
+
+                </div>
+                <div>
+                    <label>Quanity
+                    <input type="number" min="1" max="8" name="item2-quantity" step="1" placeholder="1"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="i3" class="items">
+        <div class="item-image">
+            <img src="/static/mutton-biryani.jpg">
+        </div>
+        <div class="item-des">
+            <div class="item-name">
+                <h6>Mutton Biryani Single</h6>
+                <h6>180&#8377</h6>
+            </div>
+            <div class="item-select">
+                <div>
+                    <label>Select<input type="checkbox" name="item3" value="103"></label>
+
+                </div>
+                <div>
+                    <label>Quanity
+                    <input type="number" min="1" max="8" name="item3-quantity" step="1" placeholder="1"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="i4" class="items">
+        <div class="item-image">
+            <img src="/static/mutton-biryani.jpg">
+        </div>
+        <div class="item-des">
+            <div class="item-name">
+                <h6>Motton Biryani family</h6>
+                <h6>500&#8377</h6>
+            </div>
+            <div class="item-select">
+                <div>
+                    <label>Select<input type="checkbox" name="item4" value="104"></label>
+
+                </div>
+                <div>
+                    <label>Quanity
+                    <input type="number" min="1" max="8" name="item4-quantity" step="1" placeholder="1"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="i5" class="items">
+        <div class="item-image">
+            <img src="/static/Chicken65.jpg">
+        </div>
+        <div class="item-des">
+            <div class="item-name">
+                <h6>Chicken65</h6>
+                <h6>120&#8377</h6>
+            </div>
+            <div class="item-select">
+                <div>
+                    <label>Select<input type="checkbox" name="item5" value="105"></label>
+
+                </div>
+                <div>
+                    <label>Quanity
+                    <input type="number" min="1" max="8" name="item5-quantity" step="1" placeholder="1"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="i6" class="items">
+        <div class="item-image">
+            <img src="/static/butter-naan.jpg">
+        </div>
+        <div class="item-des">
+            <div class="item-name">
+                <h6>Butter Naan</h6>
+                <h6>40&#8377</h6>
+            </div>
+            <div class="item-select">
+                <div>
+                    <label>Select<input type="checkbox" name="item6" value="106"></label>
+
+                </div>
+                <div>
+                    <label>Quanity
+                    <input type="number" min="1" max="8" name="item6-quantity" step="1" placeholder="1"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="order-footer">
+        <button id="back-btn" class="round-btns"><a href="/"><</a></button>
+        <!--<button id="submit-btn" class="btn-yellow" type="submit">place order</button>-->
+        <button id="forward-btn" type="submit" class="round-btns">></button>
+    </div>
+</form>
+
+
+{% endblock %}
