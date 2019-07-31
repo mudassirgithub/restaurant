@@ -37,15 +37,8 @@ total_amount = None
 
 
 @app.route("/")
+@login_required
 def index():
-    if session.get("user_id") is not None:
-        return redirect("/home")
-    return render_template("index.html")
-
-@app.route("/home")
-def home():
-    if session.get("user_id") is None:
-        return redirect("/")
     return render_template("home.html")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -83,7 +76,7 @@ def login():
         flash("Signed In!")
 
         # Redirect user to home page
-        return redirect("/home")
+        return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
@@ -119,7 +112,7 @@ def placeorder():
             return render_template("bill.html", selected=selected, total_amount=session["total_amount"])
         else:
             flash("No Items Were Selected!")
-            return redirect("/home")
+            return redirect("/")
     else:
         return render_template("placeorder.html")
 
@@ -129,7 +122,7 @@ def placeorder():
 def bill():
     if not(request.form.get("name") or request.form.get("mobile") or request.form.get("address")):
         flash("error: form wasn't filled!")
-        return redirect("/home")
+        return redirect("/")
     order_for = request.form.get("name")
     mobile = request.form.get("moblie")
     address = request.form.get("address")
@@ -139,10 +132,10 @@ def bill():
         session.pop('selected', None)
         session.pop('total_amount', None)
         flash("Order Placed!")
-        return redirect("/home")
+        return redirect("/")
     else:
         flash("error occured, sorry!")
-        return redirect("/home")
+        return redirect("/")
 
 
 @app.route("/booktable", methods=["GET", "POST"])
@@ -153,13 +146,13 @@ def booktable():
     else:
         if not(request.form.get("name") or request.form.get("date") or request.form.get("time") or request.form.get("guests")):
             flash("Form was not filled!")
-            return redirect("/home")
+            return redirect("/")
         booking = db.execute("INSERT INTO bookings (user_id,table_for,date,time,guests) VALUES (:user_id,:table_for,:date,:time,:guests)",
                              user_id=session["user_id"], table_for=request.form.get("name"), date=request.form.get("date"),
                              time=request.form.get("time"), guests=request.form.get("guests"))
         flash("Table Booked!")
 
-        return redirect("/home")
+        return redirect("/")
 
 
 @app.route("/logout")
@@ -172,7 +165,7 @@ def logout():
     flash("Signed Out")
 
     # Redirect user to login form
-    return url_for("index")
+    return render_template("index.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -205,7 +198,7 @@ def register():
 
         flash("Signed Up!")
 
-        return render_template("login.html")
+        return render_template("index.html")
 
     else:
         return render_template("register.html")
